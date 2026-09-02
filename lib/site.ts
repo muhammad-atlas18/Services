@@ -18,5 +18,11 @@ export function whatsappUrl(message: string) {
 }
 
 export function whatsappMessage(service?: string) {
-  return service ? `Assalam-o-Alaikum, I need consultation for ${service} in Lahore. My area is [AREA].` : "Assalam-o-Alaikum, I need information about your services in Lahore. My area is [AREA].";
+  if (!service) return "Assalam-o-Alaikum, I need information about your services in Lahore. My area is [AREA].";
+  const name = service.toLowerCase();
+  if (name.includes("solar panel installation")) return "Assalam-o-Alaikum, I need information about Solar Panel Installation in Lahore. My area is [AREA].";
+  if (name.includes("solar") && (name.includes("repair") || name.includes("diagnostic"))) return "Assalam-o-Alaikum, I need help with Solar System Repair in Lahore. My area is [AREA].";
+  if (name.includes("electrical")) return `Assalam-o-Alaikum, I need help with ${service} in Lahore. My area is [AREA].`;
+  if (name.includes("ac")) return `Assalam-o-Alaikum, I need ${service} in Lahore. My area is [AREA].`;
+  return `Assalam-o-Alaikum, I need information about ${service} in Lahore. My area is [AREA].`;
 }

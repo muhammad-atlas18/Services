@@ -1,0 +1,24 @@
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { PageShell } from "@/components/page-shell";
+import { WhatsAppLink } from "@/components/whatsapp-link";
+
+const catalogue = { solar: ["panel-installation","connection-and-setup","repair-and-diagnostics","inverter-and-battery","maintenance"], electrical: ["new-wiring","rewiring-and-upgrades","fault-finding","db-and-breakers","fixtures-and-repairs"], ac: ["installation","repair","maintenance-and-service","shifting","leakage-and-cooling"] } as const;
+const labels: Record<string, string> = { "panel-installation":"Solar Panel Installation", "connection-and-setup":"Solar Connection and Setup", "repair-and-diagnostics":"Solar System Repair", "inverter-and-battery":"Inverter and Battery Services", maintenance:"Solar Panel Maintenance", "new-wiring":"Electrical Wiring", "rewiring-and-upgrades":"Electrical Rewiring and Upgrades", "fault-finding":"Electrical Fault Repair", "db-and-breakers":"Distribution Board and Breaker Work", "fixtures-and-repairs":"Switch, Socket and Fixture Repairs", installation:"AC Installation", repair:"AC Repair", "maintenance-and-service":"AC Maintenance and Servicing", shifting:"AC Shifting", "leakage-and-cooling":"AC Leakage and Cooling Diagnosis" };
+const visuals = { solar: { hero:"/images/solar-panel-installation-lahore.webp", process:"/images/solar-inverter-repair-lahore.webp", heroAlt:"Solar technicians installing rooftop panels in Lahore", processAlt:"Solar technician inspecting an inverter and batteries in Lahore" }, electrical: { hero:"/images/electrical-wiring-lahore.webp", process:"/images/electrical-fault-repair-lahore.webp", heroAlt:"Electrician performing safe residential wiring in Lahore", processAlt:"Electrician diagnosing a distribution board in Lahore" }, ac: { hero:"/images/ac-installation-lahore.webp", process:"/images/ac-repair-service-lahore.webp", heroAlt:"AC technician installing a split AC in Lahore", processAlt:"AC technician performing cooling diagnosis in Lahore" } } as const;
+
+export function generateStaticParams() { return Object.entries(catalogue).flatMap(([category, slugs]) => slugs.map((slug) => ({ category, slug }))); }
+
+export default async function Detail({ params }: { params: Promise<{ category: string; slug: string }> }) {
+  const { category, slug } = await params;
+  const valid = (catalogue as Record<string, readonly string[]>)[category]?.includes(slug);
+  if (!valid) notFound();
+  const title = labels[slug]; const service = category === "solar" ? "Solar" : category === "electrical" ? "Electrical" : "AC"; const visual = visuals[category as keyof typeof visuals];
+  return <PageShell>
+    <section className="detailHero"><div className="container detailHeroGrid"><div><span className="eyebrow">{service} services · Lahore</span><h1>{title}</h1><p className="lead">A clear assessment-led service for homes, shops and offices in confirmed Lahore service areas.</p><WhatsAppLink service={title} position="detail_hero">Contact on WhatsApp</WhatsAppLink></div><div className="detailImage"><Image src={visual.hero} alt={visual.heroAlt} fill priority sizes="(max-width: 900px) 100vw, 48vw" /></div></div></section>
+    <section><div className="container split detailContent"><div><h2>What this service covers</h2><p>We review the requirement, site condition, materials and complete work scope before confirming the final quotation.</p><ul className="list"><li>Assessment and practical recommendations</li><li>Clear scope before work begins</li><li>Testing and handover after completion</li></ul><WhatsAppLink service={title} position="details">Contact on WhatsApp</WhatsAppLink></div><div className="detailImage processImage"><Image src={visual.process} alt={visual.processAlt} fill sizes="(max-width: 900px) 100vw, 48vw" /></div></div></section>
+    <section className="soft"><div className="container"><div className="sectionTop"><div><span className="eyebrow">Our process</span><h2>Careful work from assessment to handover.</h2></div></div><div className="steps">{["Share details", "Assess", "Explain scope", "Complete work", "Test and hand over"].map((step, index) => <div className="step" key={step}><div className="stepNumber">{index + 1}</div><h3>{step}</h3></div>)}</div><div className="processCta"><WhatsAppLink service={title} position="process">Contact on WhatsApp</WhatsAppLink></div></div></section>
+    <section><div className="container"><h2>Important quotation note</h2><p className="notice">Final quotation depends on site condition, required materials, equipment compatibility and complete work scope.</p><p><Link className="textLink" href={`/${category === "solar" ? "solar-services-lahore" : category === "electrical" ? "electrician-services-lahore" : "ac-services-lahore"}`}>View all {service.toLowerCase()} services →</Link></p></div></section>
+  </PageShell>;
+}
