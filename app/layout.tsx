@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import "./assets.css";
+import "./carousel.css";
+import "./detail-redesign.css";
+import "./detail-responsive-fixes.css";
+import "./service-catalog.css";
 import { LocalBusinessSchema } from "@/components/structured-data";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
