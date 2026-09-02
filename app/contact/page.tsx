@@ -1,0 +1,5 @@
+import { PageShell } from "@/components/page-shell";
+import { WhatsAppLink } from "@/components/whatsapp-link";
+import { ContactForm } from "@/components/contact-form";
+
+export default function ContactPage() { return <PageShell><section className="pageHero"><div className="container"><span className="eyebrow">Contact</span><h1>Start with WhatsApp for a faster service enquiry.</h1><p className="lead">Tell us your Lahore area, required service, urgency and share photos if helpful.</p><WhatsAppLink>Start WhatsApp enquiry</WhatsAppLink></div></section><section><div className="container split"><div><span className="eyebrow">What to include</span><h2>Help us understand the work.</h2><ul className="list"><li>Your confirmed Lahore area</li><li>Solar, electrical or AC requirement</li><li>Photos or a short video where useful</li><li>Urgency and preferred contact time</li></ul><div className="notice"><strong>Contact details pending.</strong><br />The approved public phone number, email, hours and areas will be added after owner confirmation.</div></div><ContactForm /></div></section></PageShell>; }

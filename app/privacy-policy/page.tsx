@@ -1,0 +1,2 @@
+import { PageShell } from "@/components/page-shell";
+export default function PrivacyPage() { return <PageShell><section className="pageHero"><div className="container"><span className="eyebrow">Privacy</span><h1>Privacy policy draft pending legal/business approval.</h1><p className="lead">The launch policy will explain the minimum enquiry information collected, its purpose, retention and contact options.</p></div></section></PageShell>; }

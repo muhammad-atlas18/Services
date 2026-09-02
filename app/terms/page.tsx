@@ -1,0 +1,2 @@
+import { PageShell } from "@/components/page-shell";
+export default function TermsPage() { return <PageShell><section className="pageHero"><div className="container"><span className="eyebrow">Terms</span><h1>Website terms draft pending legal/business approval.</h1><p className="lead">Service quotation, booking, warranty and liability terms will be finalised with the owner before launch.</p></div></section></PageShell>; }
