@@ -1,0 +1,23 @@
+:root {
+  --combined-header-height: 112px;
+}
+
+[id] {
+  scroll-margin-top: calc(var(--combined-header-height) + 16px);
+}
+
+#main:focus {
+  outline: none;
+}
+
+@media (max-width: 850px) {
+  :root {
+    --combined-header-height: 106px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

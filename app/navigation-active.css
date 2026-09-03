@@ -1,0 +1,53 @@
+.navLinks a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 72px;
+}
+
+/* Keep the navigation bar colour consistent before and after scrolling. */
+.header:not(.headerScrolled) {
+  background: rgba(11, 31, 51, .97);
+  border-color: rgba(255, 255, 255, .12);
+  box-shadow: 0 6px 20px rgba(11, 31, 51, .18);
+}
+
+.navLinks a::after {
+  position: absolute;
+  right: 0;
+  bottom: 14px;
+  left: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--amber);
+  content: "";
+  opacity: 0;
+  transform: scaleX(.35);
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.navLinks a.navActive {
+  color: #fff;
+  font-weight: 750;
+}
+
+.navLinks a.navActive::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.mobileMenu a.navActive {
+  background: #e8f2ec;
+  color: var(--green);
+  font-weight: 750;
+  box-shadow: inset 4px 0 0 var(--amber);
+}
+
+@media (max-width: 850px) {
+  .navLinks a { min-height: 64px; }
+  .navLinks a::after { bottom: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navLinks a::after { transition: none; }
+}

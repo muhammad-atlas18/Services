@@ -1,0 +1,113 @@
+.catalogCard {
+  overflow: visible;
+  border-radius: 20px;
+}
+
+.catalogImage {
+  overflow: hidden;
+  border-radius: 19px 19px 0 0;
+}
+
+.catalogBody {
+  position: relative;
+  overflow: visible;
+  padding-top: 24px;
+  border-radius: 0 0 19px 19px;
+}
+
+.catalogTop {
+  position: relative;
+  z-index: 2;
+  align-items: flex-end;
+  min-height: 56px;
+  margin-top: -53px;
+  margin-bottom: 20px;
+}
+
+.catalogIcon {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 56px;
+  width: 56px;
+  height: 56px;
+  border: 4px solid #fff;
+  border-radius: 17px;
+  background: #e4f2eb;
+  box-shadow: 0 7px 18px rgba(11, 31, 51, .16);
+}
+
+.catalogIcon svg {
+  display: block;
+  width: 28px;
+  height: 28px;
+  overflow: visible;
+}
+
+.catalogBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: calc(100% - 68px);
+  min-height: 30px;
+  padding: 6px 11px;
+  border: 1px solid #d3e5dc;
+  border-radius: 999px;
+  background: #f3f8f5;
+  font-size: .66rem;
+  line-height: 1.15;
+  text-align: center;
+  white-space: normal;
+}
+
+.catalogBody h3 {
+  min-height: 2.7em;
+  margin-bottom: 11px;
+  font-size: 1.08rem;
+}
+
+.catalogBody > p {
+  display: -webkit-box;
+  overflow: hidden;
+  min-height: 4.75em;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.catalogActions {
+  margin-top: 20px;
+}
+
+@media (max-width: 1280px) {
+  .catalogBadge { font-size: .69rem; }
+}
+
+@media (max-width: 620px) {
+  .catalogTop { margin-top: -50px; }
+  .catalogBody h3,
+  .catalogBody > p { min-height: 0; }
+  .catalogBadge { white-space: nowrap; }
+}
+
+.mainCategoryCard-home-appliances .mainCategoryImage {
+  background: #eee8df;
+}
+
+.mainCategoryCard-home-appliances .mainCategoryImage img {
+  object-fit: contain;
+  object-position: center;
+}
+
+.mainCategoryCard-home-appliances .mainCategoryAction {
+  width: auto;
+  min-width: 178px;
+  align-self: flex-start;
+  padding-right: 20px;
+  padding-left: 20px;
+  white-space: nowrap;
+}
+
+@media (max-width: 680px) {
+  .mainCategoryCard-home-appliances .mainCategoryAction {
+    width: 100%;
+  }
+}

@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images: { remotePatterns: [] },
+  images: { remotePatterns: [], qualities: [70, 75, 88] },
   async redirects() {
     return [
       ["/services/solar/connection-and-setup", "/services/solar/system-setup"],

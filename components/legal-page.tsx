@@ -1,0 +1,10 @@
+import Link from "next/link";
+
+export type LegalSection = { id: string; title: string; paragraphs?: string[]; items?: string[]; note?: string };
+
+export function LegalPage({ eyebrow, title, introduction, sections }: { eyebrow: string; title: string; introduction: string; sections: LegalSection[] }) {
+  return <>
+    <section className="legalHero"><div className="container"><nav className="legalBreadcrumb" aria-label="Breadcrumb"><Link href="/">Home</Link><span>→</span><span aria-current="page">{title}</span></nav><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{introduction}</p><div className="legalDates"><span><strong>Effective date</strong>[EFFECTIVE DATE]</span><span><strong>Last updated</strong>[LAST UPDATED DATE]</span></div></div></section>
+    <section className="legalPage"><div className="container legalLayout"><aside className="legalToc"><strong>On this page</strong><nav>{sections.map((section, index) => <a href={`#${section.id}`} key={section.id}><span>{String(index + 1).padStart(2,"0")}</span>{section.title}</a>)}</nav></aside><details className="legalMobileToc"><summary>Contents</summary><nav>{sections.map((section, index) => <a href={`#${section.id}`} key={section.id}>{index + 1}. {section.title}</a>)}</nav></details><article className="legalContent"><div className="legalReview"><strong>Legal review required before publication</strong><p>This draft is tailored to the website’s current service model but must be reviewed, completed and approved by a qualified Pakistani legal professional and the business owner before publication.</p></div>{sections.map((section, index) => <section id={section.id} className="legalSection" key={section.id}><span className="legalNumber">{String(index + 1).padStart(2,"0")}</span><h2>{section.title}</h2>{section.paragraphs?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}{section.items && <ul>{section.items.map((item) => <li key={item}>{item}</li>)}</ul>}{section.note && <div className="legalCallout">{section.note}</div>}</section>)}</article></div></section>
+  </>;
+}

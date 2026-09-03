@@ -9,7 +9,10 @@ function CategoryIcon({ category }: { category: ServiceCategory }) {
   return <svg viewBox="0 0 24 24"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M5 9h14M9 6h.01M9 13h.01"/></svg>;
 }
 
-export function MainServiceCategoryCard({ category }: { category: ServiceCategory }) {
+const urdu = { solar:{ label:"سولر سروسز", description:"لاہور میں سولر کی تنصیب، خرابی کی تشخیص، صفائی اور دیکھ بھال کی پیشہ ورانہ خدمات۔" }, electrical:{ label:"الیکٹریکل سروسز", description:"محفوظ وائرنگ، برقی خرابی کی تشخیص، ڈسٹری بیوشن بورڈ اور فٹنگز کی خدمات۔" }, ac:{ label:"اے سی سروسز", description:"اے سی کی تنصیب، مرمت، دیکھ بھال اور کولنگ کی قابلِ اعتماد خدمات۔" }, "home-appliances":{ label:"گھریلو برقی آلات کی خدمات", description:"باورچی خانے اور لانڈری کے ضروری آلات کی تشخیص اور مرمت۔" } } as const;
+export function MainServiceCategoryCard({ category, locale = "en" }: { category: ServiceCategory; locale?: "en" | "ur" }) {
   const service = getCategoryMeta(category);
-  return <article className="mainCategoryCard"><Link className="mainCategoryCardLink" href={service.route} aria-label={`See ${service.label}`} /><div className="mainCategoryImage"><Image src={service.image} alt={service.imageAlt} fill sizes="(max-width: 680px) 100vw, (max-width: 980px) 50vw, 33vw" /></div><div className="mainCategoryBody"><span className="mainCategoryIcon" aria-hidden="true"><CategoryIcon category={category} /></span><h3>{service.label}</h3><p>{service.cardDescription}</p><Link className="button secondary mainCategoryAction" href={service.route}>See {service.label}</Link></div></article>;
+  const copy = locale === "ur" ? urdu[category] : { label:service.label, description:service.cardDescription };
+  const href = locale === "ur" ? `/ur${service.route}` : service.route;
+  return <article className={`mainCategoryCard mainCategoryCard-${category}`}><Link className="mainCategoryCardLink" href={href} aria-label={locale === "ur" ? `${copy.label} کی تفصیل دیکھیں` : `See service details for ${copy.label}`} /><div className="mainCategoryImage"><Image src={service.image} alt={locale === "ur" ? `لاہور میں ${copy.label}` : service.imageAlt} fill sizes="(max-width: 680px) 100vw, (max-width: 980px) 50vw, 25vw" /></div><div className="mainCategoryBody"><span className="mainCategoryIcon" aria-hidden="true"><CategoryIcon category={category} /></span><h3>{copy.label}</h3><p>{copy.description}</p><Link className="button secondary mainCategoryAction" href={href}>{locale === "ur" ? "سروس کی تفصیل دیکھیں" : "See Service Details"}</Link></div></article>;
 }

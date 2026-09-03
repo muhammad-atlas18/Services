@@ -1,0 +1,14 @@
+.promotionalTicker {
+  position: sticky;
+  top: 72px;
+}
+
+.tickerLink:hover {
+  background: transparent;
+}
+
+@media (max-width: 850px) {
+  .promotionalTicker {
+    top: 64px;
+  }
+}

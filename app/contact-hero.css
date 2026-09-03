@@ -1,0 +1,83 @@
+.contactHero {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(320px, 36vw, 520px);
+  padding: 58px 0;
+  overflow: hidden;
+  background: #071827;
+}
+
+.contactHeroImage {
+  z-index: -2;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.contactHeroOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(7, 24, 39, .94) 0%, rgba(7, 24, 39, .78) 42%, rgba(7, 24, 39, .22) 75%, rgba(7, 24, 39, .08) 100%);
+}
+
+.contactHeroInner {
+  width: min(100% - 48px, 1200px);
+  min-width: 0;
+  margin-inline: auto;
+}
+
+.contactHero nav {
+  margin-bottom: 24px;
+  color: #c2d1cf;
+}
+
+.contactHero h1 {
+  max-width: 760px;
+  font-size: clamp(3rem, 4.2vw, 3.5rem);
+  letter-spacing: -.045em;
+}
+
+.contactHero p {
+  max-width: 620px;
+  color: #eef4f3;
+  font-size: clamp(1.05rem, 1.35vw, 1.16rem);
+  line-height: 1.65;
+}
+
+.contactLayout {
+  grid-template-columns: minmax(0, 1.45fr) minmax(320px, .75fr);
+}
+
+.contactFormPanel,
+.contactInformation {
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .contactHero { min-height: clamp(380px, 44vw, 470px); }
+  .contactHeroImage { object-position: 58% center; }
+  .contactHeroInner { width: min(100% - 80px, 1200px); }
+  .contactLayout { grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr); gap: 32px; }
+}
+
+@media (max-width: 950px) {
+  .contactHero { min-height: 400px; }
+  .contactHeroImage { object-position: 62% center; }
+  .contactHeroInner { width: min(100% - 56px, 1200px); }
+  .contactLayout { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 650px) {
+  .contactHero { min-height: clamp(340px, 92vw, 380px); padding: 42px 0; }
+  .contactHeroImage { object-position: 68% center; }
+  .contactHeroOverlay { background: linear-gradient(90deg, rgba(7, 24, 39, .94) 0%, rgba(7, 24, 39, .8) 58%, rgba(7, 24, 39, .38) 100%); }
+  .contactHeroInner { width: min(100% - 40px, 1200px); }
+  .contactHero nav { margin-bottom: 18px; }
+  .contactHero h1 { max-width: 12ch; font-size: clamp(2rem, 9vw, 2.25rem); letter-spacing: -.035em; }
+  .contactHero p { max-width: 38ch; font-size: clamp(.94rem, 4vw, 1.02rem); line-height: 1.55; }
+}
+
+@media (max-width: 380px) {
+  .contactHero { min-height: 340px; }
+  .contactHeroInner { width: calc(100% - 32px); }
+}

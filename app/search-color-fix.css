@@ -1,0 +1,15 @@
+.heroSearch input::placeholder {
+  color: #435467;
+  opacity: 1;
+}
+
+.heroSearchSubmit,
+.heroSearchSubmit:disabled {
+  background: #0f6b4f;
+  color: #fff;
+  opacity: 1;
+}
+
+.heroSearchSubmit:disabled {
+  background: #52796d;
+}

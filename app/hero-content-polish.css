@@ -1,0 +1,226 @@
+/* Shared hero copy placement: upper-left, comfortable gutters and compact context icons. */
+.aboutHero,
+.contactHero,
+.projectsHero,
+.serviceCategoryHero,
+.serviceDetailHero {
+  align-items: flex-start !important;
+  padding-top: 18px !important;
+}
+
+.aboutHeroContent,
+.contactHeroInner,
+.projectsHeroInner,
+.serviceCategoryHero > .container,
+.serviceDetailHeroContent {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  z-index: 2;
+  width: min(100% - 96px, 1200px);
+  min-width: 0;
+  margin-inline: auto;
+  padding-inline: 0;
+  text-align: left;
+  transform: translateX(-50%);
+}
+
+.aboutHeroContent,
+.projectsHeroInner {
+  padding-top: 0;
+}
+
+.aboutHero h1,
+.contactHero h1,
+.projectsHero h1,
+.serviceCategoryHero h1,
+.serviceDetailHero h1 {
+  max-width: 900px;
+  margin: 12px 0 16px;
+  color: #fff;
+  font-size: clamp(2.75rem, 4.7vw, 4.25rem);
+  line-height: 1.08;
+  letter-spacing: -.05em;
+  text-align: left;
+}
+
+.aboutHeroContent > p,
+.contactHero p,
+.projectsHero p,
+.serviceCategoryHero p,
+.serviceDetailHeroContent > p {
+  max-width: 720px;
+  margin: 0;
+  color: #e8f0ee;
+  font-size: clamp(1rem, 1.35vw, 1.12rem);
+  line-height: 1.65;
+  text-align: left;
+}
+
+.aboutHero .eyebrow,
+.contactHero .eyebrow,
+.projectsHero .eyebrow,
+.serviceCategoryHero .eyebrow,
+.serviceDetailHero .eyebrow {
+  color: var(--amber);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .075em;
+}
+
+.contactHero nav,
+.serviceCategoryHero .detailBreadcrumb,
+.serviceDetailHero .detailBreadcrumb {
+  margin-bottom: 14px;
+}
+
+.aboutHero .eyebrow,
+.contactHero .eyebrow,
+.projectsHero .eyebrow,
+.serviceCategoryHero .eyebrow,
+.serviceDetailHero .eyebrow,
+.heroCarouselLabel {
+  gap: 10px;
+}
+
+.aboutHero .eyebrow::before,
+.contactHero .eyebrow::before,
+.projectsHero .eyebrow::before,
+.serviceCategoryHero .eyebrow::before,
+.serviceDetailHero .eyebrow::before,
+.heroCarouselLabel::before {
+  display: grid;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 11px;
+  place-items: center;
+  background: rgba(7,24,39,.5);
+  color: var(--amber);
+  font-size: 1rem;
+  line-height: 1;
+  box-shadow: 0 8px 22px rgba(5,20,34,.18);
+  backdrop-filter: blur(8px);
+}
+
+.aboutHero .eyebrow::before { content: "✓"; }
+.contactHero .eyebrow::before { content: "↗"; }
+.projectsHero .eyebrow::before { content: "⌂"; }
+.serviceCategoryHero .eyebrow::before,
+.serviceDetailHero .eyebrow::before { content: "⚙"; }
+.heroSlide-solar .heroCarouselLabel::before { content: "☀"; }
+.heroSlide-electrical .heroCarouselLabel::before { content: "ϟ"; }
+.heroSlide-ac .heroCarouselLabel::before { content: "✣"; }
+
+.heroCarouselContent {
+  align-items: flex-start;
+  width: min(100% - 96px, 1200px);
+}
+
+.heroCarouselCopy {
+  padding-top: 108px;
+  padding-bottom: 72px;
+  text-align: left;
+}
+
+.heroCarouselLabel::before {
+  background: rgba(7,24,39,.62);
+}
+
+@media (max-width: 850px) {
+  .aboutHero,
+  .contactHero,
+  .projectsHero,
+  .serviceCategoryHero,
+  .serviceDetailHero {
+    padding-top: 16px !important;
+  }
+
+  .aboutHeroContent,
+  .contactHeroInner,
+  .projectsHeroInner,
+  .serviceCategoryHero > .container,
+  .serviceDetailHeroContent,
+  .heroCarouselContent {
+    width: min(100% - 56px, 1200px);
+  }
+
+  .aboutHeroContent,
+  .contactHeroInner,
+  .projectsHeroInner,
+  .serviceCategoryHero > .container,
+  .serviceDetailHeroContent { top: 16px; }
+
+  .heroCarouselCopy { padding-top: 104px; }
+}
+
+@media (max-width: 640px) {
+  .aboutHero,
+  .contactHero,
+  .projectsHero,
+  .serviceCategoryHero,
+  .serviceDetailHero {
+    padding-top: 14px !important;
+  }
+
+  .aboutHeroContent,
+  .contactHeroInner,
+  .projectsHeroInner,
+  .serviceCategoryHero > .container,
+  .serviceDetailHeroContent,
+  .heroCarouselContent {
+    width: calc(100% - 40px);
+  }
+
+  .aboutHeroContent,
+  .contactHeroInner,
+  .projectsHeroInner,
+  .serviceCategoryHero > .container,
+  .serviceDetailHeroContent { top: 14px; }
+
+  .aboutHeroContent,
+  .projectsHeroInner { padding-top: 0; }
+
+  .aboutHero h1,
+  .contactHero h1,
+  .projectsHero h1,
+  .serviceCategoryHero h1,
+  .serviceDetailHero h1 {
+    margin-top: 10px;
+    font-size: clamp(2.2rem, 10vw, 2.85rem);
+    line-height: 1.1;
+  }
+
+  .aboutHeroContent > p,
+  .contactHero p,
+  .projectsHero p,
+  .serviceCategoryHero p,
+  .serviceDetailHeroContent > p {
+    font-size: .96rem;
+    line-height: 1.58;
+  }
+
+  .heroCarouselContent { align-items: flex-start; }
+  .heroCarouselCopy {
+    width: 100%;
+    padding: 88px 0 88px;
+    text-align: left;
+  }
+  .heroCarouselLabel { justify-content: flex-start; }
+  .heroCarouselCopy h1,
+  .heroCarouselCopy p { margin-right: 0; margin-left: 0; }
+  .heroCarouselActions { width: auto; }
+  .heroCarouselActions .button { width: auto; }
+}
+
+@media (max-width: 380px) {
+  .aboutHeroContent,
+  .contactHeroInner,
+  .projectsHeroInner,
+  .serviceCategoryHero > .container,
+  .serviceDetailHeroContent,
+  .heroCarouselContent { width: calc(100% - 32px); }
+
+  .heroCarouselCopy { padding-top: 86px; }
+}

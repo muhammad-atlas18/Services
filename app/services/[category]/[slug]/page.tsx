@@ -4,9 +4,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageShell } from "@/components/page-shell";
 import { ServiceImageCarousel } from "@/components/service-image-carousel";
+import { RelatedServicesCarousel } from "@/components/related-services-carousel";
 import { WhatsAppLink } from "@/components/whatsapp-link";
 import { serviceDetails } from "@/lib/service-details";
 import { buildServiceFaqs, servicePageContent } from "@/lib/service-page-content";
+import { headers } from "next/headers";
+import { localizeService } from "@/i18n/service-urdu";
 
 const categoryLabels = { solar: "Solar", electrical: "Electrical", ac: "AC", "home-appliances": "Home Appliances" } as const;
 const processSteps = [
@@ -40,22 +43,26 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   const key = `${category}/${slug}`;
   const content = servicePageContent[key];
   if (!content) return {};
-  return { title: content.pageTitle, description: content.metaDescription, alternates: { canonical: `/services/${key}` } };
+  const isUrdu = (await headers()).get("x-gharmahir-locale") === "ur"; const detail = serviceDetails[key]; const localized = isUrdu && detail ? localizeService(key, detail, content).content : content;
+  return { title: localized.pageTitle, description: localized.metaDescription, alternates: { canonical: isUrdu ? `/ur/services/${key}` : `/services/${key}`, languages:{ en:`/services/${key}`, ur:`/ur/services/${key}`, "x-default":`/services/${key}` } } };
 }
 
 export default async function Detail({ params }: { params: Promise<{ category: string; slug: string }> }) {
   const { category, slug } = await params;
   const key = `${category}/${slug}`;
-  const detail = serviceDetails[key];
-  const content = servicePageContent[key];
-  if (!detail || !content) notFound();
+  const originalDetail = serviceDetails[key];
+  const originalContent = servicePageContent[key];
+  if (!originalDetail || !originalContent) notFound();
+  const isUrdu = (await headers()).get("x-gharmahir-locale") === "ur";
+  const localized = isUrdu ? localizeService(key, originalDetail, originalContent) : { detail:originalDetail, content:originalContent };
+  const detail = localized.detail; const content = localized.content;
   const categoryLabel = categoryLabels[detail.category];
   const categoryHref = `/services/${detail.category}`;
-  const related = Object.entries(serviceDetails).filter(([path, item]) => path !== key && item.category === detail.category).slice(0, 3);
-  const faqs = buildServiceFaqs(key, detail.title, detail.category);
+  const related = Object.entries(serviceDetails).filter(([path, item]) => path !== key && item.category === detail.category);
+  const faqs = isUrdu ? content.faqs! : buildServiceFaqs(key, detail.title, detail.category);
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  const pageUrl = `${baseUrl}/services/${key}`;
-  const serviceSchema = { "@context": "https://schema.org", "@type": "Service", name: content.pageTitle, description: content.metaDescription, serviceType: detail.title, areaServed: { "@type": "City", name: "Lahore" }, provider: { "@type": "HomeAndConstructionBusiness", name: "Lahore Services", url: baseUrl }, url: pageUrl };
+  const pageUrl = `${baseUrl}${isUrdu ? "/ur" : ""}/services/${key}`;
+  const serviceSchema = { "@context": "https://schema.org", "@type": "Service", name: content.pageTitle, description: content.metaDescription, serviceType: detail.title, areaServed: { "@type": "City", name: "Lahore" }, provider: { "@type": "HomeAndConstructionBusiness", name: "GharMahir", url: baseUrl }, url: pageUrl };
   const breadcrumbSchema = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: baseUrl }, { "@type": "ListItem", position: 2, name: "Services", item: `${baseUrl}/#services` }, { "@type": "ListItem", position: 3, name: categoryLabel, item: `${baseUrl}${categoryHref}` }, { "@type": "ListItem", position: 4, name: detail.title, item: pageUrl }] };
 
   const pageProcess = content.process || processSteps;
@@ -64,7 +71,7 @@ export default async function Detail({ params }: { params: Promise<{ category: s
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-    <section className="serviceDetailHero"><Image className="serviceDetailBackground" src={detail.image} alt={detail.imageAlt} fill priority sizes="100vw" /><div className="serviceDetailOverlay" aria-hidden="true" /><div className="container serviceDetailHeroContent"><nav className="detailBreadcrumb" aria-label="Breadcrumb"><Link href="/">Home</Link><span>→</span><Link href="/#services">Services</Link><span>→</span><Link href={categoryHref}>{categoryLabel}</Link><span>→</span><span aria-current="page">{detail.title}</span></nav><span className="eyebrow">{categoryLabel} services · Lahore</span><h1>{content.heroTitle || content.pageTitle}</h1><p>{content.introduction}</p><div className="detailHeroActions"><WhatsAppLink service={detail.title} message={content.whatsappMessage} position="detail_hero">Contact on WhatsApp</WhatsAppLink><Link className="button detailRelatedButton" href={`${categoryHref}#related-services`}>View {categoryLabel} Services</Link></div></div></section>
+    <section className="serviceDetailHero"><Image className="serviceDetailBackground" src={detail.image} alt={detail.imageAlt} fill priority sizes="100vw" /><div className="serviceDetailOverlay" aria-hidden="true" /><div className="container serviceDetailHeroContent"><nav className="detailBreadcrumb" aria-label="Breadcrumb"><Link href="/">Home</Link><span>→</span><Link href="/#services">Services</Link><span>→</span><Link href={categoryHref}>{categoryLabel}</Link><span>→</span><span aria-current="page">{detail.title}</span></nav><span className="eyebrow">{categoryLabel} services · Lahore</span><h1>{content.heroTitle || content.pageTitle}</h1><p>{content.introduction}</p><div className="detailHeroActions"><Link className="button detailRelatedButton" href={`${categoryHref}#related-services`}>View {categoryLabel} Services</Link></div></div></section>
 
     <div className="serviceDetailRedesign">
       <section className="detailOverviewRedesign"><div className="detailWideContainer overviewRedesignGrid"><div className="overviewRedesignCopy"><span className="eyebrow">Service overview</span><h2>Planning the right work for your property.</h2><p>{detail.overview}</p><p>{content.introduction}</p><div className="overviewInfoGrid">{detail.checks.map((item) => <div key={item}><span aria-hidden="true">✓</span><p>{item}</p></div>)}</div></div><aside className="enquiryCard" aria-label="Service enquiry"><span className="enquiryIcon" aria-hidden="true"><WorkItemIcon item={detail.title} /></span><span className="tag">Need this service?</span><h2>Discuss {detail.title.toLowerCase()}</h2><p>Share your requirement, property type and useful photos for an initial discussion.</p><div className="enquiryBadge">Lahore service area</div><div className="enquiryNote"><strong>Quotation after assessment</strong><span>Scope, access, materials and compatibility are reviewed first.</span></div><WhatsAppLink service={detail.title} message={content.whatsappMessage} position="overview_enquiry">Contact on WhatsApp</WhatsAppLink><div className="enquiryMeta"><span>Phone</span><strong>Number to be confirmed</strong><small>Response timing depends on current enquiries and service availability.</small></div></aside></div></section>
@@ -79,9 +86,9 @@ export default async function Detail({ params }: { params: Promise<{ category: s
 
       <section className="detailFullSection detailSoft"><div className="detailWideContainer"><div className="detailCenteredHeading"><span className="eyebrow">Why choose this service</span><h2>A clear, requirement-led approach.</h2></div><div className="whyServiceGrid">{["Requirement-Based Assessment", "Clear Work-Scope Explanation", "Suitable Tools and Methods", "Testing After Approved Work", "Residential and Commercial Support", "Lahore-Focused Service"].map((item) => <article key={item}><span aria-hidden="true"><WorkItemIcon item={item} /></span><h3>{item}</h3><p>Applied according to the confirmed service requirement and accessible site conditions.</p></article>)}</div></div></section>
 
-      <section className="detailFullSection faqRedesignSection"><div className="detailWideContainer faqRedesignGrid"><div className="faqRedesignIntro"><span className="eyebrow">Service questions</span><h2>Frequently asked questions about {detail.title.toLowerCase()}.</h2><p>Review the common questions or contact us with your Lahore area and specific requirement.</p><WhatsAppLink service={detail.title} message={content.whatsappMessage} position="faq_prompt">Ask on WhatsApp</WhatsAppLink></div><div className="faqRedesignList">{faqs.map((faq) => <details className="faq" key={faq.question}><summary>{faq.question}<span aria-hidden="true">+</span></summary><p>{faq.answer}</p></details>)}</div></div></section>
+      <section className="detailFullSection faqRedesignSection"><div className="detailWideContainer faqRedesignGrid"><div className="faqRedesignIntro"><span className="eyebrow">Service questions</span><h2>Frequently asked questions about {detail.title.toLowerCase()}.</h2><p>Review common questions about the service, assessment and work process.</p></div><div className="faqRedesignList">{faqs.map((faq) => <details className="faq" key={faq.question}><summary>{faq.question}<span aria-hidden="true">+</span></summary><p>{faq.answer}</p></details>)}</div></div></section>
 
-      <section className="detailFullSection detailSoft relatedRedesignSection" id="related-services"><div className="detailWideContainer"><div className="detailCenteredHeading"><span className="eyebrow">Related {categoryLabel} services</span><h2>Explore other services for your property.</h2></div><div className="relatedServiceGrid">{related.map(([path, item]) => { const relatedContent = servicePageContent[path]; return <article className="relatedServiceCard" key={path}><div className="relatedServiceImage"><Image src={item.image} alt={item.imageAlt} fill sizes="(max-width: 700px) 100vw, 33vw" /></div><div className="relatedServiceBody"><span className="relatedServiceIcon" aria-hidden="true"><WorkItemIcon item={item.title} /></span><h3>{item.title}</h3><p>{item.summary}</p><div className="relatedServiceActions"><Link className="button secondary" href={`/services/${path}`}>View Details</Link><WhatsAppLink service={item.title} message={relatedContent.whatsappMessage} position="related_service">Contact on WhatsApp</WhatsAppLink></div></div></article>; })}</div></div></section>
+      <section className="detailFullSection detailSoft relatedRedesignSection" id="related-services"><div className="detailWideContainer"><div className="detailCenteredHeading"><span className="eyebrow">Related {categoryLabel} services</span><h2>Explore other services for your property.</h2></div><RelatedServicesCarousel itemCount={related.length}>{related.map(([path, item]) => { const relatedContent = servicePageContent[path]; const relatedLocalized = isUrdu ? localizeService(path, item, relatedContent) : { detail:item, content:relatedContent }; return <article className="relatedServiceCard" key={path}><div className="relatedServiceImage"><Image src={item.image} alt={relatedLocalized.detail.imageAlt} fill sizes="(max-width: 700px) 100vw, 33vw" /></div><div className="relatedServiceBody"><span className="relatedServiceIcon" aria-hidden="true"><WorkItemIcon item={item.title} /></span><h3>{relatedLocalized.detail.title}</h3><p>{relatedLocalized.detail.summary}</p><div className="relatedServiceActions"><Link className="button secondary" href={`/services/${path}`}>See Service Details</Link><WhatsAppLink service={item.title} message={relatedLocalized.content.whatsappMessage} position="related_service">Contact on WhatsApp</WhatsAppLink></div></div></article>; })}</RelatedServicesCarousel></div></section>
 
       <section className="detailFinalBanner"><div className="detailWideContainer detailFinalInner"><div><span className="eyebrow">Lahore service support</span><h2>Need Professional Help With This Service?</h2><p>Share your requirements and Lahore location with us on WhatsApp for an initial discussion and service assessment.</p></div><div className="detailFinalActions"><WhatsAppLink service={detail.title} message={content.whatsappMessage} position="detail_final_cta">Contact on WhatsApp</WhatsAppLink><Link className="button detailRelatedButton" href={`${categoryHref}#related-services`}>Explore Related Services</Link></div></div></section>
     </div>

@@ -1,0 +1,46 @@
+/* Keep every primary image hero within the visible screen below the shared header and ticker. */
+.heroFull,
+.projectsHero,
+.aboutHero,
+.serviceCategoryHero,
+.serviceDetailHero {
+  height: clamp(540px, calc(100svh - 112px), 680px);
+  min-height: 0;
+  max-height: 680px;
+}
+
+.heroFull,
+.projectsHero,
+.aboutHero,
+.serviceCategoryHero,
+.serviceDetailHero {
+  padding-top: clamp(58px, 8vh, 82px);
+  padding-bottom: clamp(58px, 8vh, 82px);
+}
+
+@media (max-width: 850px) {
+  .heroFull,
+  .projectsHero,
+  .aboutHero,
+  .serviceCategoryHero,
+  .serviceDetailHero {
+    height: clamp(540px, calc(100svh - 106px), 640px);
+    min-height: 0;
+    max-height: 640px;
+    padding-top: 54px;
+    padding-bottom: 54px;
+  }
+}
+
+@media (max-width: 600px) {
+  .heroFull,
+  .projectsHero,
+  .aboutHero,
+  .serviceCategoryHero,
+  .serviceDetailHero {
+    height: clamp(530px, calc(100svh - 106px), 620px);
+    max-height: 620px;
+    padding-top: 42px;
+    padding-bottom: 48px;
+  }
+}

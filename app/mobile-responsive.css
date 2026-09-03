@@ -1,0 +1,257 @@
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+}
+
+@media (max-width: 700px) {
+  .container,
+  .detailWideContainer {
+    width: calc(100% - 32px);
+  }
+
+  h1,
+  h2,
+  h3,
+  p,
+  a,
+  button,
+  summary,
+  label {
+    overflow-wrap: anywhere;
+  }
+
+  section {
+    max-width: 100%;
+  }
+
+  .button,
+  button,
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    min-height: 44px;
+  }
+
+  .nav {
+    width: calc(100% - 32px);
+    gap: 12px;
+  }
+
+  .brand {
+    min-width: 0;
+    font-size: .92rem;
+  }
+
+  .brandMark {
+    flex: none;
+  }
+
+  .mobileMenu {
+    right: 12px;
+    left: 12px;
+    max-height: calc(100svh - 84px);
+    overflow-y: auto;
+  }
+
+  .detailBreadcrumb,
+  .contactHero nav,
+  .legalBreadcrumb {
+    gap: 6px;
+    font-size: .72rem;
+    line-height: 1.4;
+  }
+
+  .aboutHero,
+  .contactHero,
+  .projectsHero,
+  .serviceCategoryHero,
+  .serviceDetailHero {
+    min-height: 570px;
+    max-height: 640px;
+  }
+
+  .aboutHeroContent,
+  .contactHeroInner,
+  .projectsHeroInner,
+  .serviceCategoryHero > .container,
+  .serviceDetailHeroContent {
+    width: calc(100% - 32px);
+  }
+
+  .aboutHero h1,
+  .contactHero h1,
+  .projectsHero h1,
+  .serviceCategoryHero h1,
+  .serviceDetailHero h1 {
+    max-width: 100%;
+    font-size: clamp(2rem, 9.7vw, 2.7rem);
+  }
+
+  .aboutHeroContent > p,
+  .contactHero p,
+  .projectsHero p,
+  .serviceCategoryHero p,
+  .serviceDetailHeroContent > p {
+    max-width: 100%;
+    font-size: .94rem;
+  }
+
+  .heroCarouselContent {
+    width: calc(100% - 32px);
+  }
+
+  .heroCarouselCopy h1 {
+    font-size: clamp(2rem, 9.7vw, 2.55rem);
+  }
+
+  .heroSearchWrap {
+    width: calc(100% - 24px);
+  }
+
+  .heroSearch input {
+    width: 0;
+  }
+
+  .heroSearchSuggestions {
+    max-width: 100%;
+  }
+
+  .mainCategoryBody,
+  .catalogBody,
+  .relatedServiceBody,
+  .projectShowcaseBody {
+    min-width: 0;
+  }
+
+  .mainCategoryAction,
+  .catalogActions .button,
+  .relatedServiceActions .button,
+  .detailFinalActions .button,
+  .categoryFinalCta .button {
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .overviewInfoGrid,
+  .considerationGrid,
+  .contactFormGrid,
+  .projectScope ul,
+  .footerInfoGrid,
+  .legalDates {
+    grid-template-columns: 1fr;
+  }
+
+  .enquiryCard,
+  .importantInfoPanel,
+  .contactFormPanel,
+  .contactInformation,
+  .projectsNoteInner,
+  .legalReview {
+    min-width: 0;
+    padding: 22px 18px;
+  }
+
+  .processHorizontal article,
+  .categoryProcessGrid article {
+    min-width: 0;
+  }
+
+  .problemsImage,
+  .problemsImage .serviceGallery,
+  .problemsImage .serviceGalleryTrack,
+  .problemsImage .serviceGallerySlide {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .problemsImage .serviceGallery {
+    min-height: 250px;
+    aspect-ratio: auto;
+  }
+
+  .problemsImage .serviceGallerySlide {
+    min-height: 250px;
+  }
+
+  .detailFinalInner,
+  .detailFinalActions,
+  .contactSuccess > div {
+    width: 100%;
+  }
+
+  .footerServiceGrid,
+  .footerInfoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .footerInfoGrid > div:first-child {
+    grid-column: auto;
+  }
+
+  .footerBottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .globalWhatsapp {
+    right: 10px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    left: 10px;
+  }
+
+  body {
+    padding-bottom: calc(78px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 360px) {
+  .container,
+  .detailWideContainer,
+  .aboutHeroContent,
+  .contactHeroInner,
+  .projectsHeroInner,
+  .serviceCategoryHero > .container,
+  .serviceDetailHeroContent,
+  .heroCarouselContent {
+    width: calc(100% - 24px);
+  }
+
+  .brand {
+    font-size: .84rem;
+  }
+
+  .brandMark {
+    width: 32px;
+    height: 32px;
+  }
+
+  .menuButton {
+    padding-inline: 10px;
+  }
+
+  .aboutHero h1,
+  .contactHero h1,
+  .projectsHero h1,
+  .serviceCategoryHero h1,
+  .serviceDetailHero h1 {
+    font-size: clamp(1.85rem, 9.4vw, 2.2rem);
+  }
+
+  .heroCarouselLabel,
+  .aboutHero .eyebrow,
+  .contactHero .eyebrow,
+  .projectsHero .eyebrow,
+  .serviceCategoryHero .eyebrow,
+  .serviceDetailHero .eyebrow {
+    font-size: .68rem;
+  }
+}

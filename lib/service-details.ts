@@ -7,6 +7,7 @@ export type ServiceDetail = {
   overview: string;
   includes: string[];
   commonNeeds: string[];
+  checks?: readonly string[];
   gallery: { src: string; alt: string }[];
 };
 
