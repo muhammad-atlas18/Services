@@ -6,6 +6,8 @@ import "./carousel.css";
 import "./detail-redesign.css";
 import "./detail-responsive-fixes.css";
 import "./service-catalog.css";
+import "./main-category-cards.css";
+import "./category-page.css";
 import { LocalBusinessSchema } from "@/components/structured-data";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });

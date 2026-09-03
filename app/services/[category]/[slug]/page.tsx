@@ -8,7 +8,7 @@ import { WhatsAppLink } from "@/components/whatsapp-link";
 import { serviceDetails } from "@/lib/service-details";
 import { buildServiceFaqs, servicePageContent } from "@/lib/service-page-content";
 
-const categoryLabels = { solar: "Solar", electrical: "Electrical", ac: "AC" } as const;
+const categoryLabels = { solar: "Solar", electrical: "Electrical", ac: "AC", "home-appliances": "Home Appliances" } as const;
 const processSteps = [
   ["Share Your Requirements", "Tell us your Lahore area, property type, service requirement and any useful history or photos."],
   ["Initial Assessment", "We review the information and confirm whether a site inspection or equipment check is required."],
@@ -23,6 +23,7 @@ function WorkItemIcon({ item }: { item: string }) {
   if (/wire|cable|circuit|connection|socket|switch|board|breaker|earthing/.test(text)) return <svg viewBox="0 0 24 24"><path d="M13 2 5 14h6l-1 8 9-13h-6V2Z" /></svg>;
   if (/panel|solar|inverter|battery|energy/.test(text)) return <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>;
   if (/ac|cool|indoor|outdoor|refrigerant|leak|drain|filter/.test(text)) return <svg viewBox="0 0 24 24"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" /><path d="m9 5 3-2 3 2M9 19l3 2 3-2M4.5 11 4 7.5 7.5 7M16.5 17l3.5-.5.5-3.5M4.5 13l-.5 3.5 3.5.5M16.5 7l3.5.5.5 3.5" /></svg>;
+  if (/refrigerator|freezer|washing|microwave|dispenser|oven|dishwasher|appliance|thermostat|door seal|heating/.test(text)) return <svg viewBox="0 0 24 24"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M5 9h14M9 6h.01M9 13h.01"/></svg>;
   if (/install|mount|fit|replace|repair|service|maintenance/.test(text)) return <svg viewBox="0 0 24 24"><path d="m14.7 6.3 3-3a4 4 0 0 1-5 5L6 15l-3 3 3 3 3-3 6.7-6.7a4 4 0 0 1 5-5l-3 3-3-3Z" /></svg>;
   return <svg viewBox="0 0 24 24"><path d="M12 3 4 7v5c0 5 3.4 8 8 9 4.6-1 8-4 8-9V7l-8-4Z" /><path d="m8.5 12 2.2 2.2 4.8-5" /></svg>;
 }
