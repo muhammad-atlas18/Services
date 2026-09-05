@@ -1,6 +1,6 @@
 export const site = {
   name: "GharMahir",
-  whatsappNumber: (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "923052677952").replace(/\D/g, ""),
+  whatsappNumber: (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "923086009350").replace(/\D/g, ""),
   facebookUrl: process.env.NEXT_PUBLIC_FACEBOOK_URL || "https://www.facebook.com/",
   phone: "",
   serviceAreas: [] as string[],
